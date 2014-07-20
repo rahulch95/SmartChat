@@ -1,0 +1,94 @@
+<html>
+<head>
+</head>
+<script type="text/javascript">
+function makeShort() 
+{
+   var longUrl=document.getElementById("longurl").value;
+    var request = gapi.client.urlshortener.url.insert({
+	  'resource': {
+      'longUrl': longUrl
+	}
+    });
+    request.execute(function(response) 
+	{
+		
+		if(response.id != null)
+		{
+			str ="<b>Long URL:</b>"+longUrl+"<br>";
+			str +="<b>Short URL:</b> <a href='"+response.id+"'>"+response.id+"</a><br>";
+			document.getElementById("output").innerHTML = str;
+		}
+		else
+		{
+			alert("error: creating short url \n"+ response.error);
+		}
+	
+    });
+ }
+
+function getShortInfo()
+{
+var shortUrl=document.getElementById("shorturl").value;
+
+    var request = gapi.client.urlshortener.url.get({
+      'shortUrl': shortUrl,
+	'projection':'FULL'
+    });
+    request.execute(function(response) 
+	{
+		
+		if(response.longUrl!= null)
+		{
+			str ="<b>Long URL:</b>"+response.longUrl+"<br>";
+			str +="<b>Create On:</b>"+response.created+"<br>";
+			str +="<b>Short URL Clicks:</b>"+response.analytics.allTime.shortUrlClicks+"<br>";
+			str +="<b>Long URL Clicks:</b>"+response.analytics.allTime.longUrlClicks+"<br>";
+
+			document.getElementById("output").innerHTML = str;
+		}
+		else
+		{
+			alert("error: "+response.error);
+		}
+	
+    });
+
+}
+function load()
+{
+	//Get your own Browser API Key from  https://code.google.com/apis/console/
+	gapi.client.setApiKey('AIzaSyDoE0akrBvl1f3IIRLpuXpVBDsxTfa4ceg');
+	gapi.client.load('urlshortener', 'v1',function(){document.getElementById("output").innerHTML="";});
+
+}
+window.onload = load;
+
+</script>
+<script src="https://apis.google.com/js/client.js"> </script>
+
+<body>
+<h1> Google URL Shortener API Demo </h1>
+<table>
+<tr>
+<td>
+URL: <input type="text" id="longurl" name="url" size=30 value="http://www.hayageek.com" /> <br/>
+<input type="button" value="Create Short" onclick="makeShort();" /> <br/> <br/>
+
+URL: <input type="text" id="shorturl" name="url" value="http://goo.gl/NHj1c" /> <br/>
+<input type="button" value="Get Short  URL Info" onclick="getShortInfo();" />
+</td>
+<td>
+
+<div id="output">Wait. Loading....</div>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/> 
+<a href="http://hayageek.com/google-url-shortener-api/">Go to Tutorial</a>
+<br/> <br/>
+</body>
+</html>
+

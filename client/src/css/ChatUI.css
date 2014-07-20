@@ -1,0 +1,179 @@
+.ChatUI *{
+
+	box-sizing: border-box;
+}
+
+
+.ChatUI{
+
+	width:1050px;
+	border:2px double solid #ccc;
+	background-color:whitesmoke;
+	border-radius:0px;
+	
+	font-family:helvetica;
+	padding:10px;
+    height: 550px;
+}
+
+.ChatUI .title{
+
+	margin:0 10px 5px 10px;
+	color:#555;
+	font-weight:bold;
+	font-size:16px;
+}
+
+.ChatUI .transcript{
+
+	background-color: white;
+	padding: 5px;
+	height: 500px;
+	border: 1px solid #ccc;
+	border-radius: 8px 8px 0 0;
+	font-family: helvetica;
+	overflow-y: auto;
+	display:none;
+    color: white;
+}
+
+.ChatUI .transcript p{
+
+	word-wrap:break-word;
+	margin:3px 0;
+	display:none;
+	border: 1px solid #eee;
+	border-radius: 8px;
+	padding: 5px 10px;
+	font-size:14px;
+}
+
+.ChatUI .transcript p.system{
+
+	font-family:helvetica;
+	color:#999;
+	font-size:10px;
+	float: none;
+	text-align: center;
+	background: none;
+	border-style:dashed;
+}
+
+.ChatUI .transcript p.system .name{
+
+	display:none;
+}
+
+.ChatUI .transcript .name{
+
+	font-family:helvetica;
+	display:block;
+	font-size:10px;
+
+}
+
+.ChatUI .transcript .them{
+    left:600px;
+	text-align:left;
+	clear:both;
+	background-color: #FE9A2E;
+}
+
+.ChatUI .transcript .them .name{
+    left: 200px;
+    color:white;
+	padding-right:10px;
+	font-style:italic initial;
+    
+}
+
+.ChatUI .transcript .you{
+    left:600px;
+	text-align:left;
+	clear:both;
+	background-color: #11ABB0;
+}
+
+.ChatUI .transcript .you .name{
+    left: 200px;
+    color:white;
+	padding-right:10px;
+	font-style:italic initial;
+}
+
+.ChatUI .isTyping{
+
+	font-style:italic;
+	color:#999;
+	font-size:10px;
+	height:1em;
+	display:none;
+	position:absolute;
+	bottom:3px;
+}
+
+.ChatUI .input{
+
+	width: 1060px;
+    height: 50px;
+	border-radius: 0px 0px 0px 0px;
+	border: 1px solid #ccc;
+	padding:5px;
+}
+
+.ChatUI .input.disabled{
+    height: 50px;
+	background:#eee;
+}
+
+.ChatUI .input-container{
+
+	height: 50px;
+	margin-top:8px;
+}
+
+
+.ChatUI .form{
+
+	background-color: #11ABB0;
+	padding: 5px;
+	height: 100%;
+	border: 0px solid #ccc;
+	overflow-y: auto;
+}
+
+.ChatUI .form label{
+
+	display: block;
+	font-size: 13px;
+	margin-top: 8px;
+}
+
+.ChatUI .form label span{
+    color: white;
+	display: inline-block;
+	text-align:right;
+	padding-right:5px;
+}
+
+.ChatUI .form label input{
+    
+	width: 100%;
+	margin-right: 6px;
+	display: inline-block;
+    position: absolute;
+    left: 500px;
+	border-radius: 0px;
+	border: 0px solid #bbb;
+	height: 27px;
+	-webkit-box-shadow: 3px 5px 16px -6px #ccc;
+	box-shadow: 3px 5px 16px -6px #ccc;
+	font-size: 11px;
+	padding-left: 8px;
+    width: 300px;
+}
+
+.ChatUI .form label input.error{
+
+	border-color:red;
+}

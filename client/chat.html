@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en" ng-app="chatApp">
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=10"/>
+  <title>Google Phone Gallery</title>
+  <link type="text/css" rel="stylesheet" href="src/css/ChatUI.css"/>
+  <link type="text/css" title="chat-ui" rel="stylesheet" href="src/css/config.css"/>
+  <script src="src/js/jquery-1.11.1.min.js"></script>
+  <script src="src/js/ChatAPI_Lite.js"></script>
+  <script src="src/js/Chat_Transport_REST_httc.js"></script>
+  <script src="src/js/Chat_Transport_REST_webapi.js"></script>
+  <script src="src/js/ChatUI.js"></script>
+
+  <script src="src/js/angular.min.js"></script>
+  <script src="src/js/controller.js"></script>
+  <script src="src/js/x2js-v1.0.11/xml2json.js"></script>
+  <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.19.min.js"></script>
+  <script type="text/javascript" src="src/js/yelp/yelp.js"></script>
+</head>
+
+
+
+
+<body ng-controller="ChatAppController">
+
+    <h1>Lobby1</h1>
+
+    <!-- Debug controls -->
+    <button class="chat-control start">Start Chat</button>
+    <button class="chat-control end" DISABLED="DISABLED">End Chat</button>
+    <br/>
+    <!-- start: Template for Chat Widget -->
+    <div id="demo_chat_XYZ" class="ChatUI">
+      <div class="title">Chat Support</div>
+      <div class="form">
+        <label><span>First Name</span><input name="firstname"/></label>
+        <label><span>Last Name</span><input name="lastname"/></label>
+        <label><span>Nickname</span><input name="nickname"/></label>
+        <label><span>Subject</span><input name="subject"/></label>
+        <label><span>Email</span><input name="email"/></label>
+      </div>
+      <div class="transcript"></div>
+      <div class="input-container">
+        <textarea class="input" ng-model="query" ng-change="loadSentence()" ng-trim="false" ng-keydown="keyPress($event)"></textarea>
+      </div>
+      <div class="isTyping"></div>
+    </div>
+    <!-- end: Template for Chat Widget -->
+    <div>
+      <button ng-click="FinishSentence()">Take suggestion</button>
+      <button ng-click="resetAutocomplete()">Reset</button>
+    </div>
+    <div>suggestion:{{suggestion}}</div>
+    <div>{{currentDict}}</div>
+    {{dict}}
+    <button ng-click="addSentence(query)">add sentence</button>
+    <button ng-click="saveVocab()">Save Vocabulary</button>{{msg}}
+    <div>
+      {{loadedJson}}
+      <input ng-model="city"/><button ng-click="getWeather(city)">Get weather</button>
+      <div>Temp: {{weather.data.current_condition[0].temp_C}}, Humidity: {{weather.data.current_condition[0].humidity}}</div>
+    </div>
+    <div>
+      URL: <input ng-model="urlGive"/>
+      <button ng-click="getUrl(urlGive)">Get Short Url</button>
+      <div >{{urlShort}}</div>
+    </div>
+    <div>
+      Wolfram: <input ng-model="wolfram"/>
+      <button ng-click="getWolfram(wolfram)">Get Wolfram Result</button>
+      <div class='wolframText'>{{wolframResult}}</div>
+    </div>
+    <div>
+      <button ng-click="insertUser('Nancy', 'andybaek7@live.ca', '123456')">Save new user</button>
+    </div>
+    <div>
+      <button ng-click="login('andybaek7@live.ca', '123456')">Login</button>
+    </div>
+
+
+
+
+    <script>
+
+      // Create instance of chat widget
+
+      // HTTC Transport Version
+      var oChatUI = new GenesysChatUI($, $("#demo_chat_XYZ"),
+
+        Transport_REST_HTTC,
+        {
+          id: "515a4376-ac30-4ed2-801f-a876c0d56c93",
+          dataURL: "http://vladm-prod.apigee.net/chat-key/v2/chats/",
+          context: "demo"
+        }
+      );
+
+      // WebAPI Transport Version
+      /*
+      var oChatUI = new GenesysChatUI($, $("#demo_chat_XYZ"),
+
+        Transport_REST_WebAPI,
+        {
+          id: "101",
+          context: "demo",
+          dataURL: "http://localhost:8080/eservices/api/v2/chats/",
+          userData: {}
+        }
+      );
+      */
+
+      // Setup debug controls
+      $(".chat-control.start").click(function(){
+
+        oChatUI.startSession();
+        //this.disabled = true;
+        $(".chat-control.end")[0].disabled = false;
+      });
+
+      $(".chat-control.end").click(function(){
+
+        oChatUI.endSession();
+        //this.disabled = true;
+        $(".chat-control.start")[0].disabled = false;
+      });
+
+    </script>
+
+</body>
+</html>
